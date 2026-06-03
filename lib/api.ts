@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Note, NewNote } from "../types/note";
+import type { Note, NewNote, Category } from "../types/note";
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -36,5 +36,11 @@ export async function deleteNote(id: string) {
 //Fetch by Id
 export async function fetchNoteById(id: string) {
   const { data } = await apiClient.get<Note>(`/notes/${id}`);
+  return data;
+}
+
+// Fetch categoties
+export async function fetchCategories() {
+  const { data } = await apiClient.get<Category[]>(`/categories`);
   return data;
 }
