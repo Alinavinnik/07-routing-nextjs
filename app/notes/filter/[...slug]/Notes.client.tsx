@@ -14,18 +14,22 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import Modal from "@/components/Modal/Modal";
 import NoteList from "@/components/NoteList/NoteList";
 
-export default function Notes() {
+interface NotesProps {
+  tag: string;
+}
+
+export default function Notes({ tag }: NotesProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const openModal = () => setIsOpenModal(true);
   const closeModal = () => setIsOpenModal(false);
-
+  const validTag = tag === "all" ? undefined : tag;
   //Search note
   const { data, isError, isLoading } = useQuery({
-    queryKey: ["notes", searchQuery, page],
-    queryFn: () => fetchNotes(searchQuery, page),
+    queryKey: ["notes", searchQuery, page, validTag],
+    queryFn: () => fetchNotes(searchQuery, page, validTag),
     placeholderData: keepPreviousData,
   });
 

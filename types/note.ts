@@ -13,11 +13,3 @@ export interface NewNote {
   content?: string;
   tag: TypeTag;
 }
-
-export interface Category {
-  id?: string;
-  name: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-}
