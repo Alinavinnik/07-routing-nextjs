@@ -1,3 +1,4 @@
+"use client";
 import css from "./NotePreview.module.css";
 import { Note } from "@/types/note";
 interface NotePreviewProps {
