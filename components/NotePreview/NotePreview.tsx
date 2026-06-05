@@ -1,28 +1,12 @@
-"use client";
-import { useParams } from "next/navigation";
+import { Note } from "@/types/note";
 import css from "./NotePreview.module.css";
-import { useQuery } from "@tanstack/react-query";
-import { fetchNoteById } from "@/lib/api";
-import { useRouter } from "next/navigation";
 
-function NotePreview() {
-  const { id } = useParams<{ id: string }>();
+interface NotePreviewProps {
+  data: Note;
+  closeModal: () => void;
+}
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["note", id],
-    queryFn: () => fetchNoteById(id),
-    refetchOnMount: false,
-    enabled: !!id,
-  });
-  const router = useRouter();
-  const closeModal = router.back;
-
-  if (isLoading) {
-    return <p>Loading, please wait...</p>;
-  }
-  if (isError) {
-    return <p>Something went wrong.</p>;
-  }
+function NotePreview({ data, closeModal }: NotePreviewProps) {
   return (
     data && (
       <div className={css.container}>
